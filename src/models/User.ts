@@ -17,15 +17,12 @@
 // ⠀⠀⠉⠀⠈⠷⣄⡀⠀⠀⠀⠀⠀⠀⠀⠈⢿⡗⠚⡏⠀⢀⣤⡶⠛⠋⠉⠉⠉⠉⠀⣠⣾⠟⢁⣀⣤⣶⣿⠟⠁⠀
 // ⠀⠀⠀⠀⠀⠀⠀⠈⠉⠑⠲⠤⣄⣦⣤⡴⠞⠁⠀⠉⠙⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠹⠿⠾⠾⠟⠛⠁⠀⠀⠀⠀
 
-import { GenericDAO } from '../dao/GenericDAO';
-
-export class User extends GenericDAO<User> {
+export class User {
   name: string;
   email: string;
   birthday?: Date;
 
   constructor(name: string, email: string, birthday?: Date) {
-    super();
     this.name = name;
     this.email = email;
     this.birthday = birthday;
