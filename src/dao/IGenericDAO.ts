@@ -24,12 +24,12 @@
 // ⠀⠀⠀⠀⠀⠙⢻⠄⠀⠀⠀⠀⣿⠉⠀⠀⠈⠓⢯⡉⠉⠉⢱⣶⠏⠙⠛⠚⠁⠀⠀⠀⠀⠀⣼⠇⠀⠀⠀⢀⡇⠀⠀⠀⠀⠀⠀⠀⡇
 // ⠀⠀⠀⠀⠀⠀⠻⠄⠀⠀⠀⢀⣿⠀⢠⡄⠀⠀⠀⣁⠁⡀⠀⢠⠀⠀⠀⠀⠀⠀⠀⠀⢀⣐⡟⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⢠⡇
 
-export type FindOptionsType = {};
+import { Filter, FindOptions, MatchKeysAndValues } from 'mongodb';
 
 export interface IGenericDAO<T> {
   create(object: T): Promise<string>;
-  update(id: string, object: Partial<T>): Promise<boolean>;
+  update(id: string, object: MatchKeysAndValues<T>): Promise<boolean>;
   delete(id: string): Promise<boolean>;
   findOne(id: string): Promise<T>;
-  find(criteria: Partial<T>, options?: FindOptionsType): Promise<T[]>;
+  find(criteria: Filter<T>, options?: FindOptions<Document>): Promise<T[]>;
 }
