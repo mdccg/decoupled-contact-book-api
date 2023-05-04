@@ -63,6 +63,14 @@ const run = async () => {
   console.log('Usuários restantes: ');
   const allUsers = await userDAO.find({});
   console.log(allUsers);
+  
+  console.log('Discentes: ');
+  const allStudents = await userDAO.find({
+    email: {
+      $regex: 'estudante'
+    }
+  });
+  console.log(allStudents);
 
   await connection.close();
 }
