@@ -27,7 +27,7 @@
 import { Collection, Db, Document, OptionalUnlessRequiredId, ObjectId, Filter, UpdateFilter, UpdateOptions, FindOptions, MatchKeysAndValues } from 'mongodb';
 import { IGenericDAO } from './IGenericDAO';
 
-export abstract class GenericDAO<T extends Document> implements IGenericDAO<T> {
+export abstract class GenericMongoDAO<T extends Document> implements IGenericDAO<T> {
   private _collection: Collection<T>;
 
   constructor(db: Db, collectionName: string) {
@@ -47,7 +47,7 @@ export abstract class GenericDAO<T extends Document> implements IGenericDAO<T> {
     return result.insertedId.toString();
   }
 
-  async update(id: string, updateObject: MatchKeysAndValues<T>): Promise<boolean> {
+  async update(id: string, updateObject: any): Promise<boolean> {
     const filter = ({ _id: new ObjectId(id) }) as Filter<T>;
     const update: UpdateFilter<T> = { $set: updateObject };
     const options: UpdateOptions = { upsert: false };
@@ -67,9 +67,7 @@ export abstract class GenericDAO<T extends Document> implements IGenericDAO<T> {
     return result as T;
   }
 
-  private method() {}
-  
-  async find(criteria: Filter<T>, options?: FindOptions<Document>): Promise<T[]> {
+  async find(criteria: any, options?: any): Promise<T[]> {
     const cursor = this._collection.find(criteria, options || {});
     const documents: T[] = [];
     for await (const item of cursor) {
