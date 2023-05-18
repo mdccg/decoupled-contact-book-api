@@ -2,7 +2,8 @@
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "birthday" TIMESTAMP(3),
+    "email" TEXT NOT NULL,
+    "birthday" DATE,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );

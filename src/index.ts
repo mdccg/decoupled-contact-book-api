@@ -28,11 +28,7 @@ import { User } from './models/User';
 dotenv.config();
 
 const run = async () => {
-  const container = await getContainer();
-
-  // client.$on('beforeExit', () => (
-  //   console.log('ϟ Malfeito feito')
-  // ));
+  const container = await getContainer('mongodb');
 
   const userDAO = container.get<IUserDAO>(TYPES.IUserDAO);
   
@@ -70,8 +66,6 @@ const run = async () => {
   console.log('Discentes: ');
   const allStudents = await userDAO.findByEmail('estudante');
   console.log(allStudents);
-
-  // client.$disconnect();
 }
 
 run();

@@ -9,11 +9,11 @@ import { GenericDAO } from './GenericDAO';
 export class UserDAO extends GenericDAO<User> implements IUserDAO {
   constructor(@inject(TYPES.DbConnector) db: Db) {
     super();
-    // Refatorar
+    this._collection = db.collection('users');
   }
 
   async truncate(): Promise<boolean> {
-    const result = await this.collection.deleteMany({});
+    const result = await this._collection.deleteMany({});
     return result.acknowledged;
   }
 

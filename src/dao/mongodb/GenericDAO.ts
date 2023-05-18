@@ -31,19 +31,6 @@ import { IGenericDAO } from './../IGenericDAO';
 @injectable()
 export abstract class GenericDAO<T extends Document> implements IGenericDAO<T> {
   protected _collection: Collection<T>;
-  protected _db: Db;
-
-  constructor() {
-    this._collection = this._db.collection<T>('users');
-  }
-
-  public get collection(): Collection<T> {
-    return this._collection;
-  }
-  
-  public set collection(value: Collection<T>) {
-    this._collection = value;
-  }
   
   async create(object: T): Promise<string> {
     const result = await this._collection.insertOne(object as OptionalUnlessRequiredId<T>);
