@@ -34,10 +34,14 @@ const run = async () => {
   
   const userDAO = new UserDAO(client);
 
+  // Limpa a tabela antes de fazer traquinagens
+  // Linha de código não recomendada para bancos de produção
+  userDAO.truncate();
+
   const firstUser  = new User('Matheus Daniel Cristal Comparotto Gomes', 'matheus.gomes@estudante.ifms.edu.br', new Date(2001, 11 - 1, 27));
-  const secondUser = new User('Nathan Alves Gauna', 'nathan.gauna@estudante.ifms.edu.br', new Date(2001, 10 - 1, 10));
-  const thirdUser  = new User('Ryan Matheus Rezer Pacola Neto', 'ryan.neto@estudante.ifms.edu.br', new Date(1889, 11 - 1, 15));
-  const fourthUser = new User('Sidney Roberto de Sousa', 'sidney.sousa@ifms.edu.br', new Date(1970, 1 - 1, 1));
+  const secondUser = new User('Nathan Alves Gauna',                      'nathan.gauna@estudante.ifms.edu.br',  new Date(2001, 10 - 1, 10));
+  const thirdUser  = new User('Ryan Matheus Rezer Pacola Neto',          'ryan.neto@estudante.ifms.edu.br',     new Date(1889, 11 - 1, 15));
+  const fourthUser = new User('Sidney Roberto de Sousa',                 'sidney.sousa@ifms.edu.br',            new Date(1970, 1 - 1, 1));
 
   const firstUserID = await userDAO.create(firstUser);
   await userDAO.create(secondUser);
@@ -62,12 +66,7 @@ const run = async () => {
   console.log(allUsers);
   
   console.log('Discentes: ');
-  const criteria = {
-    email: {
-      contains: 'estudante'
-    }
-  };
-  const allStudents = await userDAO.find(criteria);
+  const allStudents = await userDAO.findByEmail('estudante');
   console.log(allStudents);
 
   client.$disconnect();

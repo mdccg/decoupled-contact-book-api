@@ -24,9 +24,11 @@
 // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⢠⣷⣦⣤⣀⣀⣀⣴⣿⣿⣿⣿⣿⡿⠻⠆⠸⣎⣧⠀⠈⠙⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣄⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⣠⡄⠀⣿⢹⡇⢸⡀⠀⠈⠻⢿⣿⣿⣿⣿⣿⣿
 
+import { injectable } from 'inversify';
 import { Collection, Db, Document, Filter, ObjectId, OptionalUnlessRequiredId, UpdateFilter, UpdateOptions } from 'mongodb';
 import { IGenericDAO } from './../IGenericDAO';
 
+@injectable()
 export abstract class GenericDAO<T extends Document> implements IGenericDAO<T> {
   private _collection: Collection<T>;
 
