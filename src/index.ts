@@ -18,24 +18,21 @@
 // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠀⠀⠀⠀⠀⠀⠀
 // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠋⠀⠀⠀⠀⠀⠀⠀
 
-import { MongoClient } from 'mongodb';
+import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
+import { UserDAO } from './dao/prisma/UserDAO';
 import { User } from './models/User';
-import { UserDAO } from './dao/UserDAO';
 
 dotenv.config();
 
 const run = async () => {
-  const connection = await MongoClient.connect(`${process.env.DB_URI}`);
+  const client = new PrismaClient();
   
-  connection.on('connectionClosed', () => (
+  client.$on('beforeExit', () => (
     console.log('ϟ Malfeito feito')
   ));
-
-  const db = connection.db(`${process.env.DB_NAME}`);
-  const userDAO = new UserDAO(db);
-
-  await userDAO.truncate();
+  
+  const userDAO = new UserDAO(client);
 
   const firstUser  = new User('Matheus Daniel Cristal Comparotto Gomes', 'matheus.gomes@estudante.ifms.edu.br', new Date(2001, 11 - 1, 27));
   const secondUser = new User('Nathan Alves Gauna', 'nathan.gauna@estudante.ifms.edu.br', new Date(2001, 10 - 1, 10));
@@ -65,14 +62,15 @@ const run = async () => {
   console.log(allUsers);
   
   console.log('Discentes: ');
-  const allStudents = await userDAO.find({
+  const criteria = {
     email: {
-      $regex: 'estudante'
+      contains: 'estudante'
     }
-  });
+  };
+  const allStudents = await userDAO.find(criteria);
   console.log(allStudents);
 
-  await connection.close();
+  client.$disconnect();
 }
 
 run();

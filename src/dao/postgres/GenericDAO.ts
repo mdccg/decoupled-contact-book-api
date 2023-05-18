@@ -1,13 +1,6 @@
-import { PrismaClient } from '@prisma/client';
-import { IGenericDAO } from './IGenericDAO';
+import { IGenericDAO } from './../IGenericDAO';
 
-export class GenericRelationalDAO<T> implements IGenericDAO<T> {
-  private _client: PrismaClient;
-
-  constructor(client: PrismaClient) {
-    this._client = client;
-  }
-
+export abstract class GenericDAO<T> implements IGenericDAO<T> {
   create(object: T): Promise<string> {
     throw new Error('Method not implemented.');
   }

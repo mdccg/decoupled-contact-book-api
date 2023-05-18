@@ -1,8 +1,8 @@
 import { Db } from 'mongodb';
-import { User } from '../models/User';
-import { GenericMongoDAO } from './GenericMongoDAO';
+import { User } from './../../models/User';
+import { GenericDAO } from './GenericDAO';
 
-export class UserDAO extends GenericMongoDAO<User> {
+export class UserDAO extends GenericDAO<User> {
   constructor(db: Db) {
     super(db, 'users');
   }
