@@ -8,7 +8,8 @@ import { GenericDAO } from './GenericDAO';
 @injectable()
 export class UserDAO extends GenericDAO<User> implements IUserDAO {
   constructor(@inject(TYPES.DbConnector) db: Db) {
-    super(db, 'users');
+    super();
+    // Refatorar
   }
 
   async truncate(): Promise<boolean> {

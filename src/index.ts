@@ -18,22 +18,24 @@
 // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⠀⠀⠀⠀⠀⠀⠀
 // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠋⠀⠀⠀⠀⠀⠀⠀
 
-import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
-import { UserDAO } from './dao/prisma/UserDAO';
+import 'reflect-metadata';
+import { IUserDAO } from './dao/IUserDAO';
+import { getContainer } from './injections/container';
+import { TYPES } from './injections/types';
 import { User } from './models/User';
 
 dotenv.config();
 
 const run = async () => {
-  const client = new PrismaClient();
-  
-  client.$on('beforeExit', () => (
-    console.log('ϟ Malfeito feito')
-  ));
-  
-  const userDAO = new UserDAO(client);
+  const container = await getContainer();
 
+  // client.$on('beforeExit', () => (
+  //   console.log('ϟ Malfeito feito')
+  // ));
+
+  const userDAO = container.get<IUserDAO>(TYPES.IUserDAO);
+  
   // Limpa a tabela antes de fazer traquinagens
   // Linha de código não recomendada para bancos de produção
   userDAO.truncate();
@@ -69,7 +71,7 @@ const run = async () => {
   const allStudents = await userDAO.findByEmail('estudante');
   console.log(allStudents);
 
-  client.$disconnect();
+  // client.$disconnect();
 }
 
 run();

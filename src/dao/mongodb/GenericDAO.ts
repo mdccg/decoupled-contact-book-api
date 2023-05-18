@@ -30,10 +30,11 @@ import { IGenericDAO } from './../IGenericDAO';
 
 @injectable()
 export abstract class GenericDAO<T extends Document> implements IGenericDAO<T> {
-  private _collection: Collection<T>;
+  protected _collection: Collection<T>;
+  protected _db: Db;
 
-  constructor(db: Db, collectionName: string) {
-    this._collection = db.collection<T>(collectionName);
+  constructor() {
+    this._collection = this._db.collection<T>('users');
   }
 
   public get collection(): Collection<T> {
