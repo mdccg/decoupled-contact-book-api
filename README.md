@@ -18,7 +18,7 @@ Com a utilização de Prisma e PostgreSQL, foram abordados conceitos como classe
 
 Este foi o quinto repositório de código apresentado no [Curso Superior de TSI](https://www.ifms.edu.br/campi/campus-aquidauana/cursos/graduacao/sistemas-para-internet/sistemas-para-internet) do IFMS como requisito para obtenção da nota parcial das atividades da unidade curricular Linguagem de Programação III.
 
-| [&larr; Repositório anterior](https://github.com/mdccg/postal-code-api) | [Próximo repositório &rarr;](#) |
+| [&larr; Repositório anterior](https://github.com/mdccg/postal-code-api) | [Próximo repositório &rarr;](https://github.com/mdccg/decoupled-postal-code-api) |
 |-|-|
 
 ## Pilha de tecnologia
