@@ -28,7 +28,9 @@ Este foi o quinto repositório de código apresentado no [Curso Superior de TSI]
 | Ambiente de execução | [Node](https://nodejs.org/en/) |
 | Linguagem de programação | [TypeScript](https://www.typescriptlang.org/) |
 | Virtualização de banco de dados | [Docker](https://www.docker.com/) |
-| Banco de dados | [PostgreSQL](https://www.postgresql.org/) |
+| ORM | [Prisma](https://www.prisma.io/) |
+| Banco de dados<sup>1</sup> | [MongoDB](https://www.mongodb.com/) |
+| Banco de dados<sup>2</sup> | [PostgreSQL](https://www.postgresql.org/) |
 
 ## Como rodar
 
@@ -70,7 +72,15 @@ $ docker-compose down
 
 Mas, não se preocupe. As tuplas inseridas no banco de dados não serão deletadas com a derrubada do _container_.
 
-5. Finalmente, execute o seguinte comando para executar o app:
+5. Agora, para se certificar de que o Prisma está devidamente configurado em sua máquina, execute o seguinte comando:
+
+```console
+$ yarn prisma
+```
+
+O script `prisma` está programado para criar uma nova migração no diretório [`prisma/migrations`](./prisma/migrations/).
+
+6. Finalmente, execute o seguinte comando para executar o app:
 
 Para npm:
 
